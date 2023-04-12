@@ -485,7 +485,7 @@ public class Solution
         return result;
     }
 
-    //733.图像渲染
+    //733.图像渲染(简单，矩阵)
     // 有一幅以 m x n 的二维整数数组表示的图画 image ，其中 image[i][j] 表示该图画的像素值大小。
     // 你也被给予三个整数 sr ,  sc 和 newColor 。你应该从像素 image[sr][sc] 开始对图像进行 色填充 。
     // 为了完成上色工作，从初始像素开始，记录初始坐标的上下左右四个方向上像素值与初始坐标相同的相连像素点，接着再记录这四个方向上符合条件的像素点与他们对应四个方向上像素值与初始坐标相同的相连像素点，……，重复该过程。将所有有记录的像素点的颜色值改为 newColor 。
@@ -542,7 +542,7 @@ public class Solution
         }
     }
 
-    //766.托普利茨矩阵
+    //766.托普利茨矩阵(简单，矩阵)
     // 给你一个 m x n 的矩阵 matrix 。如果这个矩阵是托普利茨矩阵，返回 true ；否则，返回 false 。
     // 如果矩阵上每一条由左上到右下的对角线上的元素都相同，那么这个矩阵是 托普利茨矩阵 。
     // 示例1：输入：matrix = [[1,2,3,4],[5,1,2,3],[9,5,1,2]]，输出：true
@@ -567,7 +567,7 @@ public class Solution
         return true;
     }
 
-    //832.翻转图像
+    //832.翻转图像(简单，矩阵)
     // 给定一个 n x n 的二进制矩阵 image ，先水平翻转图像，然后反转图像并返回结果 。
     // 水平翻转图片就是将图片的每一行都进行翻转，即逆序。
     // 例如，水平翻转 [1,1,0] 的结果是 [0,1,1]。
@@ -601,5 +601,49 @@ public class Solution
             }
         }
         return image;
+    }
+
+    //258.各位相加(简单，模拟)
+    // 给定一个非负整数 num，反复将各个位上的数字相加，直到结果为一位数。返回这个结果。
+    // 示例1：输入: num = 38，输出: 2 
+    // 解释: 各位相加的过程为：
+    // 38 --> 3 + 8 --> 11
+    // 11 --> 1 + 1 --> 2
+    // 由于 2 是一位数，所以返回 2。
+    // 示例2：输入: num = 0，输出: 0
+    public int AddDigits(int num)
+    {
+        string str = num.ToString();
+        while (num >= 10)
+        {
+            num = 0;
+            foreach (char ch in str)
+            {
+                num += (int)(ch - '0');
+            }
+            str = num.ToString();
+        }
+        return num;
+    }
+    //412.Fizz Buzz(简单，模拟)
+    // 给你一个整数 n ，找出从 1 到 n 各个整数的 Fizz Buzz 表示，并用字符串数组 answer（下标从 1 开始）返回结果，其中：
+    // answer[i] == "FizzBuzz" 如果 i 同时是 3 和 5 的倍数。
+    // answer[i] == "Fizz" 如果 i 是 3 的倍数。
+    // answer[i] == "Buzz" 如果 i 是 5 的倍数。
+    // answer[i] == i （以字符串形式）如果上述条件全不满足。
+    // 示例1：输入：n = 3，输出：["1","2","Fizz"]
+    // 示例2：输入：n = 5，输出：["1","2","Fizz","4","Buzz"]
+    // 示例3：输入：n = 15，输出：["1","2","Fizz","4","Buzz","Fizz","7","8","Fizz","Buzz","11","Fizz","13","14","FizzBuzz"]
+    public IList<string> FizzBuzz(int n) 
+    {
+        List<string> list = new List<string>();
+        for (int i = 1; i <= n; i++)
+        {
+            if (i % 3 == 0 && i % 5 == 0) list.Add("FizzBuzz");
+            else if (i % 3 == 0) list.Add("Fizz");
+            else if (i % 5 == 0) list.Add("Buzz");
+            else list.Add($"{i}");
+        }
+        return list;
     }
 }
