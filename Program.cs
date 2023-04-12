@@ -3,7 +3,8 @@
     private static void Main(string[] args)
     {
         Solution solution = new Solution();
-        int n = 15;
-        Console.WriteLine(solution.FizzBuzz(n));
+        string num1 = "";
+        string num2 = "";
+        Console.WriteLine(solution.AddStrings(num1, num2));
     }
 }

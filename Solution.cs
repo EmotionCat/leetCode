@@ -625,6 +625,7 @@ public class Solution
         }
         return num;
     }
+
     //412.Fizz Buzz(简单，模拟)
     // 给你一个整数 n ，找出从 1 到 n 各个整数的 Fizz Buzz 表示，并用字符串数组 answer（下标从 1 开始）返回结果，其中：
     // answer[i] == "FizzBuzz" 如果 i 同时是 3 和 5 的倍数。
@@ -645,5 +646,33 @@ public class Solution
             else list.Add($"{i}");
         }
         return list;
+    }
+
+    //415.字符串相加(简单，模拟)
+    // 给定两个字符串形式的非负整数 num1 和num2 ，计算它们的和并同样以字符串形式返回。
+    // 你不能使用任何內建的用于处理大整数的库（比如 BigInteger）， 也不能直接将输入的字符串转换为整数形式。
+    // 示例1：输入：num1 = "11", num2 = "123"，输出："134"
+    // 示例2：输入：num1 = "456", num2 = "77"，输出："533"
+    // 示例3：输入：num1 = "0", num2 = "0"，输出："0"
+    public string AddStrings(string num1, string num2)
+    {
+        string str = "";
+        int flag = 0;
+        if (num1.Length > num2.Length)
+        {
+            for (int i = 0; i < num2.Length; i++)
+            {
+                int count1 = (int)(num1[i] - '0');
+                int count2 = (int)(num2[i] - '0');
+                str += ((count1 + count2 + flag) % 10).ToString();
+                if (count1 + count2 + flag >= 10) flag = 1;
+            }
+            for (int i = num2.Length; i < num1.Length; i++)
+            {
+                int count = 
+            }
+        }
+
+        return str;
     }
 }
