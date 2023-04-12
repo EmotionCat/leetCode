@@ -567,4 +567,39 @@ public class Solution
         return true;
     }
 
+    //832.翻转图像
+    // 给定一个 n x n 的二进制矩阵 image ，先水平翻转图像，然后反转图像并返回结果 。
+    // 水平翻转图片就是将图片的每一行都进行翻转，即逆序。
+    // 例如，水平翻转 [1,1,0] 的结果是 [0,1,1]。
+    // 反转图片的意思是图片中的 0 全部被 1 替换， 1 全部被 0 替换。
+    // 例如，反转 [0,1,1] 的结果是 [1,0,0]。
+    // 示例1：输入：image = [[1,1,0],[1,0,1],[0,0,0]]，输出：[[1,0,0],[0,1,0],[1,1,1]]
+    // 解释：首先翻转每一行: [[0,1,1],[1,0,1],[0,0,0]]；
+    // 然后反转图片: [[1,0,0],[0,1,0],[1,1,1]]
+    // 示例2：输入：image = [[1,1,0,0],[1,0,0,1],[0,1,1,1],[1,0,1,0]]，输出：[[1,1,0,0],[0,1,1,0],[0,0,0,1],[1,0,1,0]]
+    // 解释：首先翻转每一行: [[0,0,1,1],[1,0,0,1],[1,1,1,0],[0,1,0,1]]；
+    // 然后反转图片: [[1,1,0,0],[0,1,1,0],[0,0,0,1],[1,0,1,0]]
+    public int[][] FlipAndInvertImage(int[][] image) {
+        int imageRow = image.GetLength(0);
+        int imageCol = image[0].Length;
+        for (int i = 0; i < imageRow; i++)
+        {
+            for (int j = 0; j < imageCol / 2; j++)
+            {
+                int temp = image[i][j];
+                image[i][j] = image[i][imageCol - j - 1];
+                image[i][imageCol - j - 1] = temp;
+
+            }
+        }
+        for (int i = 0; i < imageRow; i++)
+        {
+            for (int j = 0; j < imageCol; j++)
+            {
+                if (image[i][j] == 0) image[i][j] = 1;
+                else if (image[i][j] == 1) image[i][j] = 0;
+            }
+        }
+        return image;
+    }
 }
