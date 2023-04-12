@@ -1,0 +1,15 @@
+D:\Project\vsCode\.net\DotNetDebugging\bin\Release\net7.0\DotNetDebugging.exe
+D:\Project\vsCode\.net\DotNetDebugging\bin\Release\net7.0\DotNetDebugging.deps.json
+D:\Project\vsCode\.net\DotNetDebugging\bin\Release\net7.0\DotNetDebugging.runtimeconfig.json
+D:\Project\vsCode\.net\DotNetDebugging\bin\Release\net7.0\DotNetDebugging.dll
+D:\Project\vsCode\.net\DotNetDebugging\bin\Release\net7.0\DotNetDebugging.pdb
+D:\Project\vsCode\.net\DotNetDebugging\obj\Release\net7.0\DotNetDebugging.csproj.AssemblyReference.cache
+D:\Project\vsCode\.net\DotNetDebugging\obj\Release\net7.0\DotNetDebugging.GeneratedMSBuildEditorConfig.editorconfig
+D:\Project\vsCode\.net\DotNetDebugging\obj\Release\net7.0\DotNetDebugging.AssemblyInfoInputs.cache
+D:\Project\vsCode\.net\DotNetDebugging\obj\Release\net7.0\DotNetDebugging.AssemblyInfo.cs
+D:\Project\vsCode\.net\DotNetDebugging\obj\Release\net7.0\DotNetDebugging.csproj.CoreCompileInputs.cache
+D:\Project\vsCode\.net\DotNetDebugging\obj\Release\net7.0\DotNetDebugging.dll
+D:\Project\vsCode\.net\DotNetDebugging\obj\Release\net7.0\refint\DotNetDebugging.dll
+D:\Project\vsCode\.net\DotNetDebugging\obj\Release\net7.0\DotNetDebugging.pdb
+D:\Project\vsCode\.net\DotNetDebugging\obj\Release\net7.0\DotNetDebugging.genruntimeconfig.cache
+D:\Project\vsCode\.net\DotNetDebugging\obj\Release\net7.0\ref\DotNetDebugging.dll
