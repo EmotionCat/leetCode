@@ -658,7 +658,11 @@ public class Solution
     {
         string str = "";
         int flag = 0;
-        if (num1.Length > num2.Length)
+        char[] chars = num1.Reverse().ToArray();
+        num1 = new string(chars);
+        chars = num2.Reverse().ToArray();
+        num2 = new string(chars);
+        if (num1.Length >= num2.Length)
         {
             for (int i = 0; i < num2.Length; i++)
             {
@@ -666,13 +670,37 @@ public class Solution
                 int count2 = (int)(num2[i] - '0');
                 str += ((count1 + count2 + flag) % 10).ToString();
                 if (count1 + count2 + flag >= 10) flag = 1;
+                else flag = 0;
             }
             for (int i = num2.Length; i < num1.Length; i++)
             {
-                int count = 
+                int count = (int)(num1[i] - '0');
+                str +=((count + flag) % 10).ToString();
+                if (count + flag >= 10) flag = 1;
+                else flag = 0;
             }
         }
-
+        else if (num1.Length < num2.Length)
+        {
+            for (int i = 0; i < num1.Length; i++)
+            {
+                int count1 = (int)(num1[i] - '0');
+                int count2 = (int)(num2[i] - '0');
+                str += ((count1 + count2 + flag) % 10).ToString();
+                if (count1 + count2 + flag >= 10) flag = 1;
+                else flag = 0;
+            }
+            for (int i = num1.Length; i < num2.Length; i++)
+            {
+                int count = (int)(num2[i] - '0');
+                str +=((count + flag) % 10).ToString();
+                if (count + flag >= 10) flag = 1;
+                else flag = 0;
+            }
+        }
+        if (flag == 1) str += "1";
+        chars = str.Reverse().ToArray();
+        str = new string(chars);
         return str;
     }
 }
