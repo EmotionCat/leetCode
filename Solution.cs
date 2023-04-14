@@ -776,4 +776,61 @@ public class Solution
         }
         return false;
     }
+
+    //1925.统计平方和三元组的数目(简单，枚举)
+    // 一个平方和三元组 (a,b,c) 指的是满足 a^2 + b^2 = c^2 的整数三元组 a，b 和 c。
+    // 给你一个整数 n ，请你返回满足 1 <= a, b, c <= n 的平方和三元组的数目。
+    // 示例1：输入：n = 5, 输出：2
+    // 解释：平方和三元组为 (3,4,5) 和 (4,3,5)。
+    // 示例2：输入：n = 10, 输出：4
+    // 解释：平方和三元组为 (3,4,5), (4,3,5), (6,8,10) 和 (8,6,10)。
+    public int CountTriples(int n)
+    {
+        int count = 0;
+        for (int i = 1; i < n - 1; i++)
+        {
+            for (int j = i; j <= n; j++)
+            {
+                if (i * i + j * j > n * n) continue;
+                int sum = i * i + j * j;
+                double result = Math.Pow(sum, 0.5);
+                int num = (int)result;
+                if (sum == num * num && num <= n) count++;
+            }
+        }
+        return count * 2;
+    }
+
+    //1995.统计特殊四元组(简单, 枚举)
+    // 给你一个 下标从 0 开始 的整数数组 nums ，返回满足下述条件的 不同 四元组 (a, b, c, d) 的 数目 ：
+    // nums[a] + nums[b] + nums[c] == nums[d] ，且
+    // a < b < c < d
+    // 示例1：输入：nums = [1,2,3,6], 输出：1
+    // 解释：满足要求的唯一一个四元组是 (0, 1, 2, 3) 因为 1 + 2 + 3 == 6
+    // 示例2：输入：nums = [3,3,6,4,5], 输出：0
+    // 解释：[3,3,6,4,5] 中不存在满足要求的四元组。
+    // 示例3：输入：nums = [1,1,1,3,5], 输出：4
+    // 解释：满足要求的 4 个四元组如下：
+    // - (0, 1, 2, 3): 1 + 1 + 1 == 3
+    // - (0, 1, 3, 4): 1 + 1 + 3 == 5
+    // - (0, 2, 3, 4): 1 + 1 + 3 == 5
+    // - (1, 2, 3, 4): 1 + 1 + 3 == 5
+    public int CountQuadruplets(int[] nums)
+    {
+        int count = 0;
+        for (int i = 0; i < nums.Length - 3; i++)
+        {
+            for (int j = i + 1; j < nums.Length - 2; j++)
+            {
+                for (int k = j + 1; k < nums.Length - 1; k++)
+                {
+                    for (int l = k + 1; l < nums.Length; l++)
+                    {
+                        if (nums[i] + nums[j] + nums[k] == nums[l]) count++;
+                    }
+                }
+            }
+        }
+        return count;
+    }
 }

@@ -3,9 +3,7 @@
     private static void Main(string[] args)
     {
         Solution solution = new Solution();
-        int[] arr = {2,2,2,2};
-        int m = 2;
-        int k = 3;
-        Console.WriteLine(solution.ContainsPattern(arr,m, k));
+        int[] nums = {1,1,1,3,5};
+        Console.WriteLine(solution.CountQuadruplets(nums));
     }
 }
