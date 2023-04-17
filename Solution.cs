@@ -626,7 +626,7 @@ public class Solution
         return num;
     }
 
-    //412.Fizz Buzz(简单，模拟)
+    //412.Fizz Buzz(简单, 模拟)
     // 给你一个整数 n ，找出从 1 到 n 各个整数的 Fizz Buzz 表示，并用字符串数组 answer（下标从 1 开始）返回结果，其中：
     // answer[i] == "FizzBuzz" 如果 i 同时是 3 和 5 的倍数。
     // answer[i] == "Fizz" 如果 i 是 3 的倍数。
@@ -648,7 +648,7 @@ public class Solution
         return list;
     }
 
-    //415.字符串相加(简单，模拟)
+    //415.字符串相加(简单, 模拟)
     // 给定两个字符串形式的非负整数 num1 和num2 ，计算它们的和并同样以字符串形式返回。
     // 你不能使用任何內建的用于处理大整数的库（比如 BigInteger）， 也不能直接将输入的字符串转换为整数形式。
     // 示例1：输入：num1 = "11", num2 = "123"，输出："134"
@@ -704,7 +704,7 @@ public class Solution
         return str;
     }
 
-    //1534.统计好三元组(简单，枚举)
+    //1534.统计好三元组(简单, 枚举)
     // 给你一个整数数组 arr ，以及 a、b 、c 三个整数。请你统计其中好三元组的数量。
     // 如果三元组 (arr[i], arr[j], arr[k]) 满足下列全部条件，则认为它是一个好三元组。
     // 0 <= i < j < k < arr.length
@@ -739,7 +739,7 @@ public class Solution
         return count;
     }
 
-    //1566.重复至少 K 次且长度为 M 的模式(简单，枚举)
+    //1566.重复至少 K 次且长度为 M 的模式(简单, 枚举)
     // 给你一个正整数数组 arr，请你找出一个长度为 m 且在数组中至少重复 k 次的模式。
     // 模式是由一个或多个值组成的子数组（连续的子序列），连续重复多次但不重叠。 模式由其长度和重复次数定义。
     // 如果数组中存在至少重复 k 次且长度为 m 的模式，则返回 true ，否则返回  false 。
@@ -777,7 +777,7 @@ public class Solution
         return false;
     }
 
-    //1925.统计平方和三元组的数目(简单，枚举)
+    //1925.统计平方和三元组的数目(简单, 枚举)
     // 一个平方和三元组 (a,b,c) 指的是满足 a^2 + b^2 = c^2 的整数三元组 a，b 和 c。
     // 给你一个整数 n ，请你返回满足 1 <= a, b, c <= n 的平方和三元组的数目。
     // 示例1：输入：n = 5, 输出：2
@@ -833,4 +833,91 @@ public class Solution
         }
         return count;
     }
+
+    //2094.找出 3 位偶数(简单, 枚举)
+    // 给你一个整数数组 digits ，其中每个元素是一个数字（0 - 9）。数组中可能存在重复元素。
+    // 你需要找出所有满足下述条件且互不相同的整数：
+    // 该整数由 digits 中的三个元素按任意顺序依次连接组成。
+    // 该整数不含前导零
+    // 该整数是一个偶数
+    // 例如，给定的 digits 是 [1, 2, 3] ，整数 132 和 312 满足上面列出的全部条件。
+    // 将找出的所有互不相同的整数按递增顺序排列，并以数组形式返回。
+    // 示例1：输入：digits = [2,1,3,0], 输出：[102,120,130,132,210,230,302,310,312,320]
+    // 解释：
+    // 所有满足题目条件的整数都在输出数组中列出。 
+    // 注意，答案数组中不含有奇数或带前导零的整数。
+    // 示例2：输入：digits = [2,2,8,8,2], 输出：[222,228,282,288,822,828,882]
+    // 解释：
+    // 同样的数字（0 - 9）在构造整数时可以重复多次，重复次数最多与其在 digits 中出现的次数一样。 
+    // 在这个例子中，数字 8 在构造 288、828 和 882 时都重复了两次。
+    // 示例3：输入：digits = [3,7,5], 输出：[]
+    // 解释：
+    // 使用给定的 digits 无法构造偶数。
+    public int[] FindEvenNumbers(int[] digits)
+    {  
+        int length = digits.Length;
+        HashSet<int> set = new HashSet<int>();
+        for (int i = 0; i < length; i++)
+        {
+            if (digits[i] % 2 == 0)
+            {
+                for (int j = 0; j < length; j++)
+                {
+                    if (j != i && digits[j] != 0)
+                    {
+                        for (int k = 0; k < length; k++)
+                        {
+                            if (k != j && k != i)
+                            {
+                                int sum = digits[j] * 100 + digits[k] * 10 + digits[i];
+                                set.Add(sum);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        int[] result = new int[set.Count];
+        int count = 0;
+        foreach (int num in set)
+        {
+            result[count] = num;
+            count++;
+        }
+        Array.Sort(result);
+        return result;
+    }
+
+    // 2259. 移除指定数字得到的最大结果(简单, 枚举)
+    // 给你一个表示某个正整数的字符串 number 和一个字符 digit 。
+    // 从 number 中恰好移除一个等于 digit 的字符后，找出并返回按十进制表示最大的结果字符串。
+    // 生成的测试用例满足 digit 在 number 中出现至少一次。
+    // 示例 1：输入：number = "123", digit = "3", 输出："12"
+    // 解释："123" 中只有一个 '3' ，在移除 '3' 之后，结果为 "12" 。
+    // 示例 2：输入：number = "1231", digit = "1", 输出："231"
+    // 解释：可以移除第一个 '1' 得到 "231" 或者移除第二个 '1' 得到 "123" 。
+    // 由于 231 > 123 ，返回 "231" 。
+    // 示例 3：输入：number = "551", digit = "5", 输出："51"
+    // 解释：可以从 "551" 中移除第一个或者第二个 '5' 。
+    // 两种方案的结果都是 "51" 
+    public string RemoveDigit(string number, char digit)
+    {
+        HashSet<string> set = new HashSet<string>();
+        for (int i = 0; i < number.Length; i++)
+        {
+            if (number[i].Equals(digit))
+            {
+                string str = number.Substring(0,i) + number.Substring(i + 1);
+                set.Add(str);
+            }
+        }
+        string num = "0";
+        foreach (string str in set)
+        {
+            if (string.Compare(str, num) == 1) num = str;
+        }
+        return num;
+    }
+
+    
 }

@@ -3,7 +3,8 @@
     private static void Main(string[] args)
     {
         Solution solution = new Solution();
-        int[] nums = {1,1,1,3,5};
-        Console.WriteLine(solution.CountQuadruplets(nums));
+        string number = "29985893539178727148145992379911745134766237563959921352125461279593429746287123295957716729119144713";
+        char digit = '3';
+        Console.WriteLine(solution.RemoveDigit(number, digit));
     }
 }
