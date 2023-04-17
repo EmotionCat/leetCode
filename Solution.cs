@@ -919,5 +919,148 @@ public class Solution
         return num;
     }
 
-    
+    // 459. 重复的子字符串(简单, 字符串匹配)
+    // 给定一个非空的字符串 s ，检查是否可以通过由它的一个子串重复多次构成。
+    // 示例 1:
+    // 输入: s = "abab"
+    // 输出: true
+    // 解释: 可由子串 "ab" 重复两次构成。
+    // 示例 2:
+    // 输入: s = "aba"
+    // 输出: false
+    // 示例 3:
+    // 输入: s = "abcabcabcabc"
+    // 输出: true
+    // 解释: 可由子串 "abc" 重复四次构成。 (或子串 "abcabc" 重复两次构成。)
+    public bool RepeatedSubstringPattern(string s)
+    {
+        string str = "";
+        int flag = 0;
+        foreach(char ch in s)
+        {
+            str += ch;
+            string[] strs = s.Split(str);
+            foreach (string st in strs)
+            {
+                if (st != "") 
+                {
+                    flag = -1;
+                    break;
+                }
+            }
+            if (flag == 0 && str != s) return true;
+            flag = 0;
+        }
+        return false;
+    }
+
+    // 796. 旋转字符串(简单, 字符串匹配)
+    // 给定两个字符串, s 和 goal。如果在若干次旋转操作之后，s 能变成 goal ，那么返回 true 。
+    // s 的 旋转操作 就是将 s 最左边的字符移动到最右边。 
+    // 例如, 若 s = 'abcde'，在旋转一次之后结果就是'bcdea' 。
+    // 示例 1:
+    // 输入: s = "abcde", goal = "cdeab"
+    // 输出: true
+    // 示例 2:
+    // 输入: s = "abcde", goal = "abced"
+    // 输出: false
+    public bool RotateString(string s, string goal)
+    {
+        if (s.Length != goal.Length) return false;
+        if (s.Equals(goal)) return true;
+        for (int i = 0; i < s.Length - 1; i++)
+        {
+            s = s.Substring(1) + s[0];
+            if (s.Equals(goal)) return true;
+        }
+        return false;
+    }
+
+    // 1408. 数组中的字符串匹配(简单, 字符串匹配)
+    // 给你一个字符串数组 words ，数组中的每个字符串都可以看作是一个单词。
+    // 请你按 任意 顺序返回 words 中是其他单词的子字符串的所有单词。
+    // 如果你可以删除 words[j] 最左侧和/或最右侧的若干字符得到 words[i] ，那么字符串 words[i] 就是 words[j] 的一个子字符串。
+    // 示例 1：
+    // 输入：words = ["mass","as","hero","superhero"]
+    // 输出：["as","hero"]
+    // 解释："as" 是 "mass" 的子字符串，"hero" 是 "superhero" 的子字符串。
+    // ["hero","as"] 也是有效的答案。
+    // 示例 2：
+    // 输入：words = ["leetcode","et","code"]
+    // 输出：["et","code"]
+    // 解释："et" 和 "code" 都是 "leetcode" 的子字符串。
+    // 示例 3：
+    // 输入：words = ["blue","green","bu"]
+    // 输出：[]
+    public IList<string> StringMatching(string[] words)
+    {
+        HashSet<string> set = new HashSet<string>();
+        foreach (string str in words)
+        {
+            for (int i = 0; i < words.Length; i++)
+            {
+                if (words[i] == str || str.Length > words[i].Length) continue;
+                if (words[i].Contains(str)) set.Add(str);
+            }
+        }
+        return set.ToList();
+    }
+
+    // 1455. 检查单词是否为句中其他单词的前缀(简单, 字符串匹配)
+    // 给你一个字符串 sentence 作为句子并指定检索词为 searchWord ，其中句子由若干用 单个空格 分隔的单词组成。请你检查检索词 searchWord 是否为句子 sentence 中任意单词的前缀。
+    // 如果 searchWord 是某一个单词的前缀，则返回句子 sentence 中该单词所对应的下标（下标从 1 开始）。如果 searchWord 是多个单词的前缀，则返回匹配的第一个单词的下标（最小下标）。如果 searchWord 不是任何单词的前缀，则返回 -1 。
+    // 字符串 s 的 前缀 是 s 的任何前导连续子字符串。
+    // 示例 1：
+    // 输入：sentence = "i love eating burger", searchWord = "burg"
+    // 输出：4
+    // 解释："burg" 是 "burger" 的前缀，而 "burger" 是句子中第 4 个单词。
+    // 示例 2：
+    // 输入：sentence = "this problem is an easy problem", searchWord = "pro"
+    // 输出：2
+    // 解释："pro" 是 "problem" 的前缀，而 "problem" 是句子中第 2 个也是第 6 个单词，但是应该返回最小下标 2 。
+    // 示例 3：
+    // 输入：sentence = "i am tired", searchWord = "you"
+    // 输出：-1
+    // 解释："you" 不是句子中任何单词的前缀。
+    public int IsPrefixOfWord(string sentence, string searchWord)
+    {
+        string[] strs = sentence.Split(" ");
+        for (int i = 0; i < strs.Length; i++)
+        {
+            if (strs[i].StartsWith(searchWord)) return i + 1;
+        }
+        return -1;
+    }
+
+    // 1668. 最大重复子字符串(简单, 字符串匹配)
+    // 给你一个字符串 sequence ，如果字符串 word 连续重复 k 次形成的字符串是 sequence 的一个子字符串，那么单词 word 的 重复值为 k 。单词 word 的 最大重复值 是单词 word 在 sequence 中最大的重复值。如果 word 不是 sequence 的子串，那么重复值 k 为 0 。
+    // 给你一个字符串 sequence 和 word ，请你返回 最大重复值 k 。
+    // 示例 1：
+    // 输入：sequence = "ababc", word = "ab"
+    // 输出：2
+    // 解释："abab" 是 "ababc" 的子字符串。
+    // 示例 2：
+    // 输入：sequence = "ababc", word = "ba"
+    // 输出：1
+    // 解释："ba" 是 "ababc" 的子字符串，但 "baba" 不是 "ababc" 的子字符串。
+    // 示例 3：
+    // 输入：sequence = "ababc", word = "ac"
+    // 输出：0
+    // 解释："ac" 不是 "ababc" 的子字符串。
+    public int MaxRepeating(string sequence, string word)
+    {
+        int count = 0;
+        if (sequence.Contains(word))
+        {
+            count++;
+            string str = word + word;
+            while (sequence.Contains(str))
+            {
+                count++;
+                str += word;
+            }
+        }
+        return count;
+    }
+
 }
