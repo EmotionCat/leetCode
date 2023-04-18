@@ -1063,4 +1063,107 @@ public class Solution
         return count;
     }
 
+    // 561. 数组拆分(简单, 计数排序)
+    // 给定长度为 2n 的整数数组 nums ，你的任务是将这些数分成 n 对, 例如 (a1, b1), (a2, b2), ..., (an, bn) ，使得从 1 到 n 的 min(ai, bi) 总和最大。
+    // 返回该 最大总和 。
+    // 示例 1：
+    // 输入：nums = [1,4,3,2]
+    // 输出：4
+    // 解释：所有可能的分法（忽略元素顺序）为：
+    // 1. (1, 4), (2, 3) -> min(1, 4) + min(2, 3) = 1 + 2 = 3
+    // 2. (1, 3), (2, 4) -> min(1, 3) + min(2, 4) = 1 + 2 = 3
+    // 3. (1, 2), (3, 4) -> min(1, 2) + min(3, 4) = 1 + 3 = 4
+    // 所以最大总和为 4
+    // 示例 2：
+    // 输入：nums = [6,2,6,5,1,2]
+    // 输出：9
+    // 解释：最优的分法为 (2, 1), (2, 5), (6, 6). min(2, 1) + min(2, 5) + min(6, 6) = 1 + 2 + 6 = 9
+    public int ArrayPairSum(int[] nums)
+    {
+        Array.Sort(nums);
+        int sum = 0;
+        for (int i = 0; i < nums.Length; i+=2)
+        {
+            sum += nums[i];
+        }
+        return sum;
+    }
+
+    // 1051. 高度检查器(简单, 计数排序)
+    // 学校打算为全体学生拍一张年度纪念照。根据要求，学生需要按照 非递减 的高度顺序排成一行。
+    // 排序后的高度情况用整数数组 expected 表示，其中 expected[i] 是预计排在这一行中第 i 位的学生的高度（下标从 0 开始）。
+    // 给你一个整数数组 heights ，表示 当前学生站位 的高度情况。heights[i] 是这一行中第 i 位学生的高度（下标从 0 开始）。
+    // 返回满足 heights[i] != expected[i] 的 下标数量 。
+    // 示例：
+    // 输入：heights = [1,1,4,2,1,3]
+    // 输出：3 
+    // 解释：
+    // 高度：[1,1,4,2,1,3]
+    // 预期：[1,1,1,2,3,4]
+    // 下标 2 、4 、5 处的学生高度不匹配。
+    // 示例 2：
+    // 输入：heights = [5,1,2,3,4]
+    // 输出：5
+    // 解释：
+    // 高度：[5,1,2,3,4]
+    // 预期：[1,2,3,4,5]
+    // 所有下标的对应学生高度都不匹配。
+    // 示例 3：
+    // 输入：heights = [1,2,3,4,5]
+    // 输出：0
+    // 解释：
+    // 高度：[1,2,3,4,5]
+    // 预期：[1,2,3,4,5]
+    // 所有下标的对应学生高度都匹配。
+    public int HeightChecker(int[] heights)
+    {
+        int[] rightheihts = new int[heights.Length];
+        for (int i = 0; i < heights.Length; i++)
+        {
+            rightheihts[i] = heights[i];
+        }
+        Array.Sort(rightheihts);
+        int count = 0;
+        for (int i = 0; i < heights.Length; i++)
+        {
+            if (rightheihts[i] != heights[i]) count++;
+        }
+        return count;
+    }
+
+    // 1122. 数组的相对排序(简单, 计数排序)
+    // 给你两个数组，arr1 和 arr2，arr2 中的元素各不相同，arr2 中的每个元素都出现在 arr1 中。
+    // 对 arr1 中的元素进行排序，使 arr1 中项的相对顺序和 arr2 中的相对顺序相同。未在 arr2 中出现过的元素需要按照升序放在 arr1 的末尾。
+    // 示例 1：
+    // 输入：arr1 = [2,3,1,3,2,4,6,7,9,2,19], arr2 = [2,1,4,3,9,6]
+    // 输出：[2,2,2,1,4,3,3,9,6,7,19]
+    // 示例  2:
+    // 输入：arr1 = [28,6,22,8,44,17], arr2 = [22,28,8,6]
+    // 输出：[22,28,8,6,17,44]
+    public int[] RelativeSortArray(int[] arr1, int[] arr2)
+    {
+        Dictionary<int, int> dictionary = new Dictionary<int, int>();
+        foreach (int num in arr2)
+        {
+            dictionary.Add(num, 0);
+        }
+        Array.Sort(arr1);
+        foreach (int num in arr1)
+        {
+            if (!dictionary.TryAdd(num, 1)) dictionary[num]++;
+        }
+        int count = 0;
+        for (int i = 0; i < dictionary.Count; i++)
+        {
+            var item = dictionary.ElementAt(i);
+            for (int j = 0; j < item.Value; j++)
+            {
+                arr1[count] = item.Key;
+                count++;
+            }
+        }
+        return arr1;    
+    }
+
+    
 }
