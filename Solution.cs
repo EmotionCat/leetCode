@@ -1205,4 +1205,98 @@ public class Solution
         return maxArea;
 
     }
+
+    // 15. 三数之和(中等, 数组)
+    // 给你一个整数数组 nums ，判断是否存在三元组 [nums[i], nums[j], nums[k]] 满足 i != j、i != k 且 j != k ，同时还满足 nums[i] + nums[j] + nums[k] == 0 。请
+    // 你返回所有和为 0 且不重复的三元组。
+    // 注意：答案中不可以包含重复的三元组。
+    // 示例 1：
+    // 输入：nums = [-1,0,1,2,-1,-4]
+    // 输出：[[-1,-1,2],[-1,0,1]]
+    // 解释：
+    // nums[0] + nums[1] + nums[2] = (-1) + 0 + 1 = 0 。
+    // nums[1] + nums[2] + nums[4] = 0 + 1 + (-1) = 0 。
+    // nums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0 。
+    // 不同的三元组是 [-1,0,1] 和 [-1,-1,2] 。
+    // 注意，输出的顺序和三元组的顺序并不重要。
+    // 示例 2：
+    // 输入：nums = [0,1,1]
+    // 输出：[]
+    // 解释：唯一可能的三元组和不为 0 。
+    // 示例 3：
+    // 输入：nums = [0,0,0]
+    // 输出：[[0,0,0]]
+    // 解释：唯一可能的三元组和为 0 。
+    public IList<IList<int>> ThreeSum(int[] nums)
+    {
+        List<IList<int>> result = new List<IList<int>>();
+        HashSet<string> set = new HashSet<string>();
+        int length = nums.Length;
+        if (length < 3) return result;
+        Array.Sort(nums);
+        for (int i = 1; i < length - 1; i++)
+        {
+            int left = 0;
+            int right = length - 1;
+            while(left < i && right > i)
+            {
+                if (nums[i] + nums[left] + nums[right] == 0)
+                {
+                    string str = nums[left].ToString() + nums[i].ToString() + nums[right].ToString();
+                    if (set.Add(str)) result.Add(new List<int> {nums[left], nums[i], nums[right]}); 
+                    left++;                  
+                }
+                else if (nums[i] + nums[left] + nums[right] > 0)
+                {
+                    right--;
+                    while(right > i && nums[right] == nums[right + 1]) right--;
+                }
+                else if (nums[i] + nums[left] + nums[right] < 0)
+                {
+                    left++;
+                    while (left < i && nums[left] == nums[left - 1]) left++;
+                }
+                else {}
+            }
+        }
+        return result;
+    }
+
+    // 16. 最接近的三数之和(中等, 数组)
+    // 给你一个长度为 n 的整数数组 nums 和 一个目标值 target。请你从 nums 中选出三个整数，使它们的和与 target 最接近。
+    // 返回这三个数的和。
+    // 假定每组输入只存在恰好一个解。
+    // 示例 1：
+    // 输入：nums = [-1,2,1,-4], target = 1
+    // 输出：2
+    // 解释：与 target 最接近的和是 2 (-1 + 2 + 1 = 2) 。
+    // 示例 2：
+    // 输入：nums = [0,0,0], target = 1
+    // 输出：0
+    public int ThreeSumClosest(int[] nums, int target)
+    {
+        Array.Sort(nums);
+        int length = nums.Length;
+        int sum = 0;
+        int diff = 0;
+        if (nums[0] + nums[1] + nums[2] >= target) return nums[0] + nums[1] + nums[2];
+        diff = nums[0] + nums[1] + nums[2] - target;
+        for (int i = 0; i < length - 2; i++)
+        {
+            for (int j = i + 1; j < length - 1; j++)
+            {
+                int k = j + 1;           
+                do
+                {
+                    sum = nums[i] + nums[j] + nums[k];
+                    if (Math.Abs(sum - target) == 0) return sum;
+                    if (Math.Abs(sum - target) < Math.Abs(diff)) diff = sum - target;
+                    k++;
+                }while(k < length);
+            }
+        }
+        return diff + target;
+    }
+
+
 }

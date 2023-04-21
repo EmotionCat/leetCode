@@ -3,7 +3,8 @@
     private static void Main(string[] args)
     {
         Solution solution = new Solution();
-        int[] height = new int[] {1,8,6,2,5,4,8,3,7};
-        Console.WriteLine(solution.MaxArea(height));
+        int[] nums = new int[] {2,3,8,9,10};
+        int target = 16;
+        Console.WriteLine(solution.ThreeSumClosest(nums, target));
     }
 }
