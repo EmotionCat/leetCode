@@ -1298,5 +1298,113 @@ public class Solution
         return diff + target;
     }
 
+    // 3. 无重复字符的最长子串(中等, 字符串)
+    // 给定一个字符串 s ，请你找出其中不含有重复字符的 最长子串 的长度。
+    // 示例 1:
+    // 输入: s = "abcabcbb"
+    // 输出: 3 
+    // 解释: 因为无重复字符的最长子串是 "abc"，所以其长度为 3。
+    // 示例 2:
+    // 输入: s = "bbbbb"
+    // 输出: 1
+    // 解释: 因为无重复字符的最长子串是 "b"，所以其长度为 1。
+    // 示例 3:
+    // 输入: s = "pwwkew"
+    // 输出: 3
+    // 解释: 因为无重复字符的最长子串是 "wke"，所以其长度为 3。
+    // 请注意，你的答案必须是 子串 的长度，"pwke" 是一个子序列，不是子串。
+    public int LengthOfLongestSubstring(string s)
+    {
+        Dictionary<char, int> dictionary = new Dictionary<char, int>();
+        int count = 0;
+        for (int i = 0; i < s.Length; i++)
+        {
+            if (!dictionary.TryAdd(s[i], i))
+            {
+                count = count > dictionary.Count ? count : dictionary.Count;
+                i = dictionary[s[i]] + 1;
+                dictionary.Clear();
+                dictionary.TryAdd(s[i], i);
+            }
+        }
+        count = count > dictionary.Count ? count : dictionary.Count;
+        return count;
+    }
 
+    // 5. 最长回文子串(中等, 字符串)
+    // 给你一个字符串 s，找到 s 中最长的回文子串。
+    // 如果字符串的反序与原始字符串相同，则该字符串称为回文字符串。
+    // 示例 1：
+    // 输入：s = "babad"
+    // 输出："bab"
+    // 解释："aba" 同样是符合题意的答案。
+    // 示例 2：
+    // 输入：s = "cbbd"
+    // 输出："bb"
+    public string LongestPalindrome(string s)
+    {
+        string result = s[0].ToString();
+        if (s.Equals(new string(s.Reverse().ToArray()))) return s;
+        for (int i = 0; i < s.Length; i++)
+        {
+            if (i + 1 <= s.Length - 1 && s[i] == s[i + 1])
+            {
+                int j = 0;
+                while (i - j >= 0 && i + 1 + j < s.Length)
+                {
+                    string str = s.Substring(i - j, 2 + 2 * j);
+                    if (str.Equals(new string(str.Reverse().ToArray())))
+                    {
+                        if (str.Length > result.Length) result = str;
+                    }
+                    j++;
+                }
+            }
+            if (i + 2 <= s.Length - 1 && s[i] == s[i + 2])
+            {
+                int j = 0;
+                while (i - j >= 0 && i + 2 + j < s.Length)
+                {
+                    string str = s.Substring(i - j, 3 + 2 * j);
+                    if (str.Equals(new string(str.Reverse().ToArray())))
+                    {
+                        if (str.Length > result.Length) result = str;
+                    }
+                    j++;
+                }
+            }
+        }
+        return result;
+    }
+
+// 6. N 字形变换
+// 将一个给定字符串 s 根据给定的行数 numRows ，以从上往下、从左到右进行 Z 字形排列。
+// 比如输入字符串为 "PAYPALISHIRING" 行数为 3 时，排列如下：
+// P   A   H   N
+// A P L S I I G
+// Y   I   R
+// 之后，你的输出需要从左往右逐行读取，产生出一个新的字符串，比如："PAHNAPLSIIGYIR"。
+// 请你实现这个将字符串进行指定行数变换的函数：
+// string convert(string s, int numRows);
+// 示例 1：
+// 输入：s = "PAYPALISHIRING", numRows = 3
+// 输出："PAHNAPLSIIGYIR"
+// 示例 2：
+// 输入：s = "PAYPALISHIRING", numRows = 4
+// 输出："PINALSIGYAHRPI"
+// 解释：
+// P     I    N
+// A   L S  I G
+// Y A   H R
+// P     I
+// 示例 3：
+// 输入：s = "A", numRows = 1
+// 输出："A"
+    public string Convert(string s, int numRows)
+    {
+        string str = "";
+        int count = s.Length / (numRows * 2 - 2);
+        if (s.Length % (numRows * 2 - 2) != 0) count++;
+        return str;
+    }
 }
