@@ -1377,34 +1377,110 @@ public class Solution
         return result;
     }
 
-// 6. N 字形变换
-// 将一个给定字符串 s 根据给定的行数 numRows ，以从上往下、从左到右进行 Z 字形排列。
-// 比如输入字符串为 "PAYPALISHIRING" 行数为 3 时，排列如下：
-// P   A   H   N
-// A P L S I I G
-// Y   I   R
-// 之后，你的输出需要从左往右逐行读取，产生出一个新的字符串，比如："PAHNAPLSIIGYIR"。
-// 请你实现这个将字符串进行指定行数变换的函数：
-// string convert(string s, int numRows);
-// 示例 1：
-// 输入：s = "PAYPALISHIRING", numRows = 3
-// 输出："PAHNAPLSIIGYIR"
-// 示例 2：
-// 输入：s = "PAYPALISHIRING", numRows = 4
-// 输出："PINALSIGYAHRPI"
-// 解释：
-// P     I    N
-// A   L S  I G
-// Y A   H R
-// P     I
-// 示例 3：
-// 输入：s = "A", numRows = 1
-// 输出："A"
+    // 寻找数组的中心索引 
+    // 给你一个整数数组 nums ，请计算数组的 中心下标 。
+    // 数组 中心下标 是数组的一个下标，其左侧所有元素相加的和等于右侧所有元素相加的和。
+    // 如果中心下标位于数组最左端，那么左侧数之和视为 0 ，因为在下标的左侧不存在元素。这一点对于中心下标位于数组最右端同样适用。
+    // 如果数组有多个中心下标，应该返回 最靠近左边 的那一个。如果数组不存在中心下标，返回 -1 。
+    // 示例 1：
+    // 输入：nums = [1, 7, 3, 6, 5, 6]
+    // 输出：3
+    // 解释：
+    // 中心下标是 3 。
+    // 左侧数之和 sum = nums[0] + nums[1] + nums[2] = 1 + 7 + 3 = 11 ，
+    // 右侧数之和 sum = nums[4] + nums[5] = 5 + 6 = 11 ，二者相等。
+    // 示例 2：
+    // 输入：nums = [1, 2, 3]
+    // 输出：-1
+    // 解释：
+    // 数组中不存在满足此条件的中心下标。
+    // 示例 3：
+    // 输入：nums = [2, 1, -1]
+    // 输出：0
+    // 解释：
+    // 中心下标是 0 。
+    // 左侧数之和 sum = 0 ，（下标 0 左侧不存在元素），
+    // 右侧数之和 sum = nums[1] + nums[2] = 1 + -1 = 0 。
+    public int PivotIndex(int[] nums) 
+    {
+        int sum = nums.Sum();
+
+        int leftsum = 0;
+        for (int i = 0; i < nums.Length; i++)
+        {
+            sum -= nums[i];
+            if (i > 0) leftsum += nums[i - 1];
+            if (leftsum == sum) return i;
+        }
+        return -1;
+    }
+    
+    // 搜索插入位置
+    // 给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。
+    // 请必须使用时间复杂度为 O(log n) 的算法。
+    // 示例 1:
+    // 输入: nums = [1,3,5,6], target = 5
+    // 输出: 2
+    // 示例 2:
+    // 输入: nums = [1,3,5,6], target = 2
+    // 输出: 1
+    // 示例 3:
+    // 输入: nums = [1,3,5,6], target = 7
+    // 输出: 4  
+
+    public int SearchInsert(int[] nums, int target) 
+    {
+        if (target > nums[nums.Length - 1]) return nums.Length;
+        else if (target == nums[nums.Length - 1]) return nums.Length - 1;
+        if (target <= nums[0]) return 0;
+
+        int left = 0, right = nums.Length - 1, index = 0;
+        while (index != (left + right) / 2)
+        {
+            index = (left + right) / 2;
+            if (target == nums[index]) return index;
+            if (target > nums[index]) left = index;
+            if (target < nums[index]) right = index;
+        }
+        if (target > nums[index]) return index + 1;
+        if (target < nums[index]) return index;
+        return 0;
+    }
+
+    // 6. N 字形变换
+    // 将一个给定字符串 s 根据给定的行数 numRows ，以从上往下、从左到右进行 Z 字形排列。
+    // 比如输入字符串为 "PAYPALISHIRING" 行数为 3 时，排列如下：
+    // P   A   H   N
+    // A P L S I I G
+    // Y   I   R
+    // 之后，你的输出需要从左往右逐行读取，产生出一个新的字符串，比如："PAHNAPLSIIGYIR"。
+    // 请你实现这个将字符串进行指定行数变换的函数：
+    // string convert(string s, int numRows);
+    // 示例 1：
+    // 输入：s = "PAYPALISHIRING", numRows = 3
+    // 输出："PAHNAPLSIIGYIR"
+    // 示例 2：
+    // 输入：s = "PAYPALISHIRING", numRows = 4
+    // 输出："PINALSIGYAHRPI"
+    // 解释：
+    // P     I    N
+    // A   L S  I G
+    // Y A   H R
+    // P     I
+    // 示例 3：
+    // 输入：s = "A", numRows = 1
+    // 输出："A"
     public string Convert(string s, int numRows)
     {
         string str = "";
-        int count = s.Length / (numRows * 2 - 2);
-        if (s.Length % (numRows * 2 - 2) != 0) count++;
+        int length = numRows * 2 - 2;
+        int count = s.Length / length;
+        if (s.Length % length != 0) count++;//一共有几组
+
+        for (int i = 0; i < numRows; i++)
+        {
+            
+        }
         return str;
     }
 }
