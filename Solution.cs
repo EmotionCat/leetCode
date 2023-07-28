@@ -1447,8 +1447,161 @@ public class Solution
         return 0;
     }
 
+    // 56.合并区间(中等)
+    // 以数组 intervals 表示若干个区间的集合，其中单个区间为 intervals[i] = [starti, endi] 。请你合并所有重叠的区间，并返回 一个不重叠的区间数组，该数组需恰好覆盖输入中的所有区间 。
+    // 示例 1：
+    // 输入：intervals = [[1,3],[2,6],[8,10],[15,18]]
+    // 输出：[[1,6],[8,10],[15,18]]
+    // 解释：区间 [1,3] 和 [2,6] 重叠, 将它们合并为 [1,6].
+    // 示例 2：
+    // 输入：intervals = [[1,4],[4,5]]
+    // 输出：[[1,5]]
+    // 解释：区间 [1,4] 和 [4,5] 可被视为重叠区间。
+    public int[][] Merge(int[][] intervals) 
+    {
+        //先对所有的区间按区间起始点进行排序
+        int length = intervals.GetLength(0);
+        for (int i = 0; i < length - 1; i++)
+        {
+            for (int j = i; j < length; j++)
+            {
+                if (intervals[i][0] > intervals[j][0])
+                {
+                    int[] temp = intervals[j];
+                    intervals[j] = intervals[i];
+                    intervals[i] = temp;
+                }
+            }
+        }
+        //区间判断
+        List<int[]> areas = new List<int[]>();
+        int[] area = new int[2];
+        area = intervals[0];
+        for (int i = 1; i < length; i++)
+        {
+            if (area[1] < intervals[i][0]) 
+            {
+                areas.Add(area);
+                area = intervals[i];
+                continue;
+            }
+            else if (area[1] < intervals[i][1])
+            {
+                area[1] = intervals[i][1];
+            }
+        }
+        areas.Add(area);
+
+        int[][] result = new int[areas.Count][];
+        for (int i = 0; i < areas.Count; i++)
+        {
+            result[i] = areas[i];
+        }
+        return result;
+    }
+
+    //777.宝石与石头 (简单)
+    // 给你一个字符串 jewels 代表石头中宝石的类型，另有一个字符串 stones 代表你拥有的石头。 stones 中每个字符代表了一种你拥有的石头的类型，你想知道你拥有的石头中有多少是宝石。
+    // 字母区分大小写，因此 "a" 和 "A" 是不同类型的石头。 
+    // 示例 1：
+    // 输入：jewels = "aA", stones = "aAAbbbb"
+    // 输出：3
+    // 示例 2：
+    // 输入：jewels = "z", stones = "ZZ"
+    // 输出：0
+    public int NumJewelsInStones(string jewels, string stones) 
+    {
+        int count = 0;
+        foreach (char ch in stones)
+        {
+            if (jewels.Contains(ch)) count++;
+        }
+        return count;
+    }
+
+    // 48.旋转矩阵
+    // 给你一幅由 N × N 矩阵表示的图像，其中每个像素的大小为 4 字节。请你设计一种算法，将图像旋转 90 度。
+    // 不占用额外内存空间能否做到？
+    // 示例 1:
+    // 给定 matrix = 
+    // [
+    //   [1,2,3],
+    //   [4,5,6],
+    //   [7,8,9]
+    // ],
+    // 原地旋转输入矩阵，使其变为:
+    // [
+    //   [7,4,1],
+    //   [8,5,2],
+    //   [9,6,3]
+    // ]
+    // 示例 2:
+    // 给定 matrix =
+    // [
+    //   [ 5, 1, 9,11],
+    //   [ 2, 4, 8,10],
+    //   [13, 3, 6, 7],
+    //   [15,14,12,16]
+    // ],   
+    // 原地旋转输入矩阵，使其变为:
+    // [
+    //   [15,13, 2, 5], 
+    //   [14, 3, 4, 1],
+    //   [12, 6, 8, 9],
+    //   [16, 7,10,11]
+    // ]
+    public void Rotate(int[][] matrix)
+    {
+        if (matrix.GetLength(0) == 1) return;
+        for (int i = 0; i < matrix.GetLength(0) - 1; i++)
+        {
+            
+        }
+    }
+    // 2500. 删除每行中的最大值
+    // 给你一个 m x n 大小的矩阵 grid ，由若干正整数组成。
+    // 执行下述操作，直到 grid 变为空矩阵：
+    // 从每一行删除值最大的元素。如果存在多个这样的值，删除其中任何一个。
+    // 将删除元素中的最大值与答案相加。
+    // 注意 每执行一次操作，矩阵中列的数据就会减 1 。
+    // 返回执行上述操作后的答案。
+    // 示例 1：
+    // 输入：grid = [[1,2,4],[3,3,1]]
+    // 输出：8
+    // 解释：上图展示在每一步中需要移除的值。
+    // 在第一步操作中，从第一行删除 4 ，从第二行删除 3（注意，有两个单元格中的值为 3 ，我们可以删除任一）。在答案上加 4 。
+    // 在第二步操作中，从第一行删除 2 ，从第二行删除 3 。在答案上加 3 。
+    // 在第三步操作中，从第一行删除 1 ，从第二行删除 1 。在答案上加 1 。
+    // 最终，答案 = 4 + 3 + 1 = 8 。
+    // 示例 2：
+    // 输入：grid = [[10]]
+    // 输出：10
+    // 解释：上图展示在每一步中需要移除的值。
+    // 在第一步操作中，从第一行删除 10 。在答案上加 10 。
+    // 最终，答案 = 10 。
+    public int DeleteGreatestValue(int[][] grid) 
+    {
+        int row = grid.GetLength(0);
+        int col = grid[0].Length;
+        int sum = 0;
+        for (int i = 0; i < row; i++)
+        {
+            Array.Sort(grid[i]);
+        }
+        for (int i = 0; i < col; i++)
+        {
+            int max = 0;
+            for (int j = 0; j < row; j++)
+            {
+                if (grid[j][i] > max) max = grid[j][i];
+            }
+            sum += max;
+        }
+        return sum;
+    }
+
     // 6. N 字形变换
-    // 将一个给定字符串 s 根据给定的行数 numRows ，以从上往下、从左到右进行 Z 字形排列。
+    // 将一个给定字符串 s 根据给定的行数numRows，以从上往下、从左到右进行 Z 字形排列。
     // 比如输入字符串为 "PAYPALISHIRING" 行数为 3 时，排列如下：
     // P   A   H   N
     // A P L S I I G
@@ -1483,4 +1636,6 @@ public class Solution
         }
         return str;
     }
+
+    
 }

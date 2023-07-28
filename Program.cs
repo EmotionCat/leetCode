@@ -7,8 +7,8 @@ internal class Program
         // string s = "PAYPALISHIRING";
         // int numRows = 4;
         // Console.WriteLine(!true&true);
-        int[] nums = new int[]{1,3,5,6};
-        Console.WriteLine(solution.SearchInsert(nums, 1));
+        int[][] nums = new int[][]{new int[]{1, 2, 4, 3}, new int[]{5, 4, 6, 2}, new int[]{0, 1, 5, 2}};
+        Console.WriteLine(solution.DeleteGreatestValue(nums));
         
     }
 }
