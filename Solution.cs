@@ -1519,45 +1519,6 @@ public class Solution
         return count;
     }
 
-    // 48.旋转矩阵
-    // 给你一幅由 N × N 矩阵表示的图像，其中每个像素的大小为 4 字节。请你设计一种算法，将图像旋转 90 度。
-    // 不占用额外内存空间能否做到？
-    // 示例 1:
-    // 给定 matrix = 
-    // [
-    //   [1,2,3],
-    //   [4,5,6],
-    //   [7,8,9]
-    // ],
-    // 原地旋转输入矩阵，使其变为:
-    // [
-    //   [7,4,1],
-    //   [8,5,2],
-    //   [9,6,3]
-    // ]
-    // 示例 2:
-    // 给定 matrix =
-    // [
-    //   [ 5, 1, 9,11],
-    //   [ 2, 4, 8,10],
-    //   [13, 3, 6, 7],
-    //   [15,14,12,16]
-    // ],   
-    // 原地旋转输入矩阵，使其变为:
-    // [
-    //   [15,13, 2, 5], 
-    //   [14, 3, 4, 1],
-    //   [12, 6, 8, 9],
-    //   [16, 7,10,11]
-    // ]
-    public void Rotate(int[][] matrix)
-    {
-        if (matrix.GetLength(0) == 1) return;
-        for (int i = 0; i < matrix.GetLength(0) - 1; i++)
-        {
-            
-        }
-    }
     // 2500. 删除每行中的最大值
     // 给你一个 m x n 大小的矩阵 grid ，由若干正整数组成。
     // 执行下述操作，直到 grid 变为空矩阵：
@@ -1599,6 +1560,108 @@ public class Solution
         }
         return sum;
     }
+
+    // 822. 翻转卡片游戏
+    // 在桌子上有 N 张卡片，每张卡片的正面和背面都写着一个正数（正面与背面上的数有可能不一样）。
+    // 我们可以先翻转任意张卡片，然后选择其中一张卡片。
+    // 如果选中的那张卡片背面的数字 X 与任意一张卡片的正面的数字都不同，那么这个数字是我们想要的数字。
+    // 哪个数是这些想要的数字中最小的数（找到这些数中的最小值）呢？如果没有一个数字符合要求的，输出 0。
+    // 其中, fronts[i] 和 backs[i] 分别代表第 i 张卡片的正面和背面的数字。
+    // 如果我们通过翻转卡片来交换正面与背面上的数，那么当初在正面的数就变成背面的数，背面的数就变成正面的数。
+    // 示例：
+    // 输入：fronts = [1,2,4,4,7], backs = [1,3,4,1,3]
+    // 输出：2
+    // 解释：假设我们翻转第二张卡片，那么在正面的数变成了 [1,3,4,4,7] ， 背面的数变成了 [1,2,4,1,3]。
+    // 接着我们选择第二张卡片，因为现在该卡片的背面的数是 2，2 与任意卡片上正面的数都不同，所以 2 就是我们想要的数字。
+    public int Flipgame(int[] fronts, int[] backs) 
+    {
+        //思路：找到只出现一次的数，并排序
+        //用 dictionary 把次数与数据都存入
+        Dictionary<int,int> nums = new Dictionary<int, int>();
+        int min = 0;
+        for(int i = 0; i < fronts.Length; i++)
+        {
+            if (fronts[i] != backs[i])
+            {
+                nums.TryAdd(fronts[i], 1);
+                nums.TryAdd(backs[i], 1);
+            }
+            else 
+            {
+                if (nums.TryGetValue(fronts[i], out int count)) nums[fronts[i]]++;
+                else nums.TryAdd(fronts[i],2);
+            } 
+        }
+
+        min = 0;
+        foreach(KeyValuePair<int, int> kvp in nums)
+        {
+            if (kvp.Value == 1 && (min == 0 || min > kvp.Key)) min = kvp.Key;
+        }
+        return min;
+    }
+
+    // 48.旋转矩阵
+    // 给你一幅由 N × N 矩阵表示的图像，其中每个像素的大小为 4 字节。请你设计一种算法，将图像旋转 90 度。
+    // 不占用额外内存空间能否做到？
+    // 示例 1:
+    // 给定 matrix = 
+    // [
+    //   [1,2,3],
+    //   [4,5,6],
+    //   [7,8,9]
+    // ],
+    // 原地旋转输入矩阵，使其变为:
+    // [
+    //   [7,4,1],
+    //   [8,5,2],
+    //   [9,6,3]
+    // ]
+    // 示例 2:
+    // 给定 matrix =
+    // [
+    //   [ 5, 1, 9,11],
+    //   [ 2, 4, 8,10],
+    //   [13, 3, 6, 7],
+    //   [15,14,12,16]
+    // ],   
+    // 原地旋转输入矩阵，使其变为:
+    // [
+    //   [15,13, 2, 5], 
+    //   [14, 3, 4, 1],
+    //   [12, 6, 8, 9],
+    //   [16, 7,10,11]
+    // ]
+    public void Rotate(int[][] matrix)
+    {
+        if (matrix.GetLength(0) == 1) return;
+        for (int i = 0; i < matrix.GetLength(0) - 1; i++)
+        {
+            for (int j = i; j <= matrix.GetLength(0) - 1 - i; j++)
+            {
+                matrix[i][j] = matrix[i][j] + matrix[j][matrix.GetLength(0) - i - 1] + matrix[matrix.GetLength(0) - i - 1][matrix.GetLength(0) - j - 1] + matrix[matrix.GetLength(0) - j - 1][i];
+                matrix[j][matrix.GetLength(0) - i - 1] = matrix[i][j] - matrix[j][matrix.GetLength(0) - i - 1] - matrix[matrix.GetLength(0) - i - 1][matrix.GetLength(0) - j - 1] - matrix[matrix.GetLength(0) - j - 1][i];
+                matrix[matrix.GetLength(0) - i - 1][matrix.GetLength(0) - j - 1] = matrix[i][j] - matrix[j][matrix.GetLength(0) - i - 1] - matrix[matrix.GetLength(0) - i - 1][matrix.GetLength(0) - j - 1] - matrix[matrix.GetLength(0) - j - 1][i];
+                matrix[matrix.GetLength(0) - j - 1][i] = matrix[i][j] - matrix[j][matrix.GetLength(0) - i - 1] - matrix[matrix.GetLength(0) - i - 1][matrix.GetLength(0) - j - 1] - matrix[matrix.GetLength(0) - j - 1][i];
+                matrix[i][j] = matrix[i][j] - matrix[j][matrix.GetLength(0) - i - 1] - matrix[matrix.GetLength(0) - i - 1][matrix.GetLength(0) - j - 1] - matrix[matrix.GetLength(0) - j - 1][i];
+            }
+            
+        }
+    }
+    // 617. 合并二叉树
+    // 给你两棵二叉树： root1 和 root2 。
+    // 想象一下，当你将其中一棵覆盖到另一棵之上时，两棵树上的一些节点将会重叠（而另一些不会）。你需要将这两棵树合并成一棵新二叉树。合并的规则是：如果两个节点重叠，那么将这两个节点的值相加作为合并后节点的新值；否则，不为 null 的节点将直接作为新二叉树的节点。
+    // 返回合并后的二叉树。
+    // 注意: 合并过程必须从两个树的根节点开始。
+    // 示例 1：
+    // 输入：root1 = [1,3,2,5], root2 = [2,1,3,null,4,null,7]
+    // 输出：[3,4,5,5,4,null,7]
+    // 示例 2：
+    // 输入：root1 = [1], root2 = [1,2]
+    // 输出：[2,2]
+    // public TreeNode MergeTrees(TreeNode root1, TreeNode root2) 
+    // {
+    // }
 
     // 6. N 字形变换
     // 将一个给定字符串 s 根据给定的行数numRows，以从上往下、从左到右进行 Z 字形排列。
